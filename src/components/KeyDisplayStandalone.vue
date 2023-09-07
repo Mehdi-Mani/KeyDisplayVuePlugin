@@ -21,7 +21,9 @@
   import useKeyDisplay from "../useKeyDisplay.ts";
   import { StyleValue, inject } from "vue";
   import { KeyPluginStylingKeys } from "../index.ts";
-  const wrapperStyles = inject(KeyPluginStylingKeys.wrapper) as StyleValue;
+  const wrapperStyles = inject(KeyPluginStylingKeys.wrapper, undefined) as
+    | StyleValue
+    | undefined;
 
   const {
     onKeyPress,
@@ -32,13 +34,4 @@
   } = useKeyDisplay();
 </script>
 
-<style lang="css">
-  .wrapper {
-    position: fixed;
-    display: flex;
-    justify-items: center;
-    gap: 0.5rem;
-    bottom: 0.5rem;
-    left: 50%;
-  }
-</style>
+<style lang="css"></style>

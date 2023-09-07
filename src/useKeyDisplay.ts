@@ -16,7 +16,7 @@ export default function useKeyDisplay() {
   const isAKeyBeingPressed = computed(
     () => KeyOutput.value || isOptionKeyPressed.value
   );
-  let aboutToClearTimeOut: string | number | NodeJS.Timeout | undefined;
+  let aboutToClearTimeOut: number | undefined;
   const emitter = ref<Emitter<any>>();
 
   function clearKey() {
