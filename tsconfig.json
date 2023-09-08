@@ -6,13 +6,13 @@
     /* Specify what JSX code is generated. */
     "jsx": "preserve",
     /* Specify what module code is generated. */
-    "module": "esnext",
+    "module": "ESNext",
     /* Specify the root folder within your source files. */
     "rootDir": "./src",
     /* Specify how TypeScript looks up a file from a given module specifier. */
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     /* Specify the base directory to resolve non-relative module names. */
-    "baseUrl": "./src",
+    "baseUrl": ".",
     /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
     "declaration": true,
     /* Create sourcemaps for d.ts files. */
@@ -30,7 +30,8 @@
     "strict": true,
     /* Skip type checking all .d.ts files. */
     "skipLibCheck": true,
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "noEmit": true
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "exclude": ["**/node_modules"],

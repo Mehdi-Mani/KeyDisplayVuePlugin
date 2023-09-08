@@ -112,17 +112,23 @@ To start using KeyDisplayPLugin:
   pnpm install npm@latest -g
   ```
 
-2. Import the plugin and use
+2. Import the plugin and call app.use
 
    ```ts
-   import KeyDisplayPlugin from "@/KeyDisplayPlugin/dist/keyDisplay";
+   import KeyDisplayPlugin from "vue-plugin-key-display";
    import App from "./App.vue";
 
    const app = createApp(App);
    app.use(KeyDisplayPlugin);
    ```
 
-3. Implement either the standalone
+3. (Optional) Import default CSS styling
+
+   ```ts
+   import "vue-plugin-key-display/style.css";
+   ```
+
+4. Implement either the standalone
 
    ```ts
 

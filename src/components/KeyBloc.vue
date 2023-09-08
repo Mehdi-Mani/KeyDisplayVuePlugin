@@ -1,29 +1,25 @@
 <template>
   <span
-    :class="{ keyblock: !keyBlockStyles }"
-    :style="keyBlockStyles"
+    :class="{ keyblock: !props?.KeyPluginOptions?.KeyBlocStyleObject }"
+    :style="props?.KeyPluginOptions?.KeyBlocStyleObject"
     v-if="props.showCondition"
     >{{ props.keyPressed }}
   </span>
 </template>
 
 <script setup lang="ts">
-  import { KeyPluginStylingKeys } from "../index.ts";
-  import { inject, StyleValue } from "vue";
-
+  import KeyPluginOptions from "src/type/KeyPluginOptions";
   const props = withDefaults(
     defineProps<{
       showCondition?: boolean;
       keyPressed: string;
+      KeyPluginOptions?: KeyPluginOptions;
     }>(),
     { showCondition: true }
   );
-  const keyBlockStyles = inject(KeyPluginStylingKeys.key) as
-    | StyleValue
-    | undefined;
 </script>
 
-<style scoped>
+<style lang="css" scoped>
   .keyblock {
     border-color: white;
     border-width: 1px;
@@ -31,6 +27,7 @@
     padding: 0.5rem;
     background-color: #eee;
     color: black;
+    cursor: default;
   }
   @media (prefers-color-scheme: light) {
     .keyblock {
@@ -40,3 +37,4 @@
     }
   }
 </style>
+src/type/KeyPluginOptions

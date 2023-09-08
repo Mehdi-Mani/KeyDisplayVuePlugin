@@ -1,54 +1,31 @@
 import { type Emitter } from "mitt";
-import { computed, inject, onMounted, reactive, ref } from "vue";
+import { computed, inject, onMounted, reactive, ref, provide, Ref } from "vue";
+import KeyPluginOptions from "./type/KeyPluginOptions";
+import { KeyQueue } from "./entities/KeyQueue";
 
-export default function useKeyDisplay() {
-  const KeyOutput = ref("");
-  const optionKeys = reactive({
-    ShiftPressed: false,
-    CtrlPressed: false,
-    AltPressed: false,
-  });
-  const isOptionKeyPressed = computed(
-    () =>
-      optionKeys.AltPressed || optionKeys.CtrlPressed || optionKeys.ShiftPressed
-  );
-  const isNormalKeyPressed = computed(() => KeyOutput.value.length > 0);
-  const isAKeyBeingPressed = computed(
-    () => KeyOutput.value || isOptionKeyPressed.value
-  );
-  let aboutToClearTimeOut: number | undefined;
+export default function useKeyDisplay(options?: KeyPluginOptions) {
   const emitter = ref<Emitter<any>>();
+  const keyQueue = new KeyQueue(ref([]), options);
+  const isAKeyBeingPressed = computed(() => keyQueue.isEmpty());
 
-  function clearKey() {
-    KeyOutput.value = "";
-    optionKeys.AltPressed = false;
-    optionKeys.CtrlPressed = false;
-    optionKeys.ShiftPressed = false;
-  }
-  function onKeyPress(e: KeyboardEvent) {
-    clearTimeout(aboutToClearTimeOut);
+  function onKeyPressEvent(e: KeyboardEvent) {
     emitter.value?.emit("keyPressed", e);
-    aboutToClearTimeOut = setTimeout(() => {
-      clearKey();
-    }, 2000);
+  }
+
+  function onKeyPressHandler(e: KeyboardEvent) {
+    keyQueue.addToQueue(e);
+  }
+  function setupEventBinding() {
+    window.onkeyup = onKeyPressEvent;
+    emitter.value = inject<Emitter<any>>("emitter");
+    emitter.value?.on("keyPressed", onKeyPressHandler);
   }
   onMounted(() => {
-    window.onkeydown = onKeyPress;
-    emitter.value = inject<Emitter<any>>("emitter");
-    emitter.value?.on("keyPressed", (e: KeyboardEvent) => {
-      if (e.key !== "Control" && e.key !== "Alt" && e.key !== "Shift") {
-        KeyOutput.value = e.key.toUpperCase();
-      }
-      optionKeys.ShiftPressed = e.shiftKey;
-      optionKeys.AltPressed = e.altKey;
-      optionKeys.CtrlPressed = e.ctrlKey;
-    });
+    setupEventBinding();
   });
   return {
-    onKeyPress,
-    optionKeys,
-    KeyOutput,
-    isNormalKeyPressed,
+    onKeyPress: onKeyPressEvent,
+    keyQueue,
     isAKeyBeingPressed,
   };
 }

@@ -1,5 +1,5 @@
 {
-  "name": "vue-plugin-key-display",
+  "name": "vue-keys-display",
   "version": "1.1.0",
   "keywords": [
     "vue",
@@ -13,15 +13,26 @@
     "email": "mani.mehdi@outlook.com",
     "url": "https://github.com/Mehdi-Mani"
   },
-  "module": "./dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mehdi-Mani/KeyDisplayVuePlugin"
+  },
+  "scripts": {
+    "build": "pnpm run type-check && pnpm run build-only ",
+    "build-only": "vite build",
+    "type-check": "vue-tsc -p tsconfig.json --composite false",
+    "test": "echo \"No test specified\""
+  },
+  "type": "module",
+  "main": "dist/keyDisplay.js",
+  "types": "dist/keyDisplay.d.ts",
+  "files": [
+    "dist/style.css",
+    "dist/keyDisplay.d.ts"
+  ],
   "dependencies": {
     "mitt": "^3.0.1",
     "vue": "^3.3.4"
-  },
-  "scripts": {
-    "build": "pnpm run type-check && pnpm run build-only",
-    "build-only": "vite build",
-    "type-check": "vue-tsc --noEmit -p tsconfig.json --composite false"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
