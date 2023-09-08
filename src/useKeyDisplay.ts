@@ -1,6 +1,6 @@
 import { type Emitter } from "mitt";
 import { computed, inject, onMounted, reactive, ref, provide, Ref } from "vue";
-import KeyPluginOptions from "./type/KeyPluginOptions";
+import KeyPluginOptions from "./types/KeyPluginOptions";
 import { KeyQueue } from "./entities/KeyQueue";
 
 export default function useKeyDisplay(options?: KeyPluginOptions) {

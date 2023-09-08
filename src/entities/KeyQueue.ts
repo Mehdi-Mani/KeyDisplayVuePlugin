@@ -1,6 +1,6 @@
 import { Ref } from "vue";
 import { KeyEntity } from "./KeyEntity";
-import KeyPluginOptions from "../type/KeyPluginOptions";
+import KeyPluginOptions from "../types/KeyPluginOptions";
 
 export class KeyQueue {
   constructor(
@@ -9,9 +9,21 @@ export class KeyQueue {
   ) {}
   public addToQueue(e: KeyboardEvent) {
     const keyEntity = new KeyEntity(e.key, e.altKey, e.ctrlKey, e.shiftKey);
-    if (keyEntity.shouldBeDisplayed()) {
+    if (!keyEntity.isEmpty() && !this.isKeyEntityBlacklisted(keyEntity)) {
       this.queue.value.unshift(keyEntity);
       this.timedRemoval(this.options?.fadeDelay || 2000);
+    }
+  }
+  public isKeyEntityBlacklisted(key: KeyEntity) {
+    if (this.options?.blackList) {
+      let isBlackListed = false;
+      this.options.blackList.every((keyEntity: KeyEntity) => {
+        if (keyEntity.isEqual(key)) {
+          isBlackListed = true;
+          return false;
+        }
+      });
+      return isBlackListed;
     }
   }
   public timedRemoval(time: number) {

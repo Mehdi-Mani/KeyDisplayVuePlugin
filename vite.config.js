@@ -10,6 +10,7 @@ const __dirname = path.dirname(__filename);
 export default defineConfig({
   plugins: [vue(), dts({ rollupTypes: true })],
   build: {
+    watch: {},
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
       name: "KeyDisplay",

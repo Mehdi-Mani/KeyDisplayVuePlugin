@@ -1,3 +1,4 @@
+import { KeyEntity } from "src/entities/KeyEntity";
 import { StyleValue } from "vue";
 
 interface KeyPluginOptions {
@@ -10,6 +11,7 @@ interface KeyPluginOptions {
   KeyCtrlStyleObject?: StyleValue | undefined;
   fadeDelay?: number;
   numberOfKeyGroupDisplayed?: number;
+  blackList?: KeyEntity[];
 }
 export const KeyPluginOptionsDefault = {
   fadeDelay: 2000,

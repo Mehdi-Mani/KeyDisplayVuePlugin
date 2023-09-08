@@ -43,7 +43,12 @@ export class KeyEntity {
       this._content as ModifierKeysEnum
     );
   }
-  public shouldBeDisplayed() {
-    return !this.isEmpty();
+  public isEqual(keyEntity: KeyEntity) {
+    return (
+      keyEntity._altPressed === this._altPressed &&
+      keyEntity._ctrlPressed === this.ctrlPressed &&
+      this._shiftPressed === keyEntity.shiftPressed &&
+      this._content === keyEntity._content
+    );
   }
 }

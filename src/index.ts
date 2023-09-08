@@ -1,5 +1,6 @@
 import { App } from "vue";
 import KeyAnchor from "./components/KeyAnchor.vue";
+import { KeyEntity } from "./entities/KeyEntity";
 
 export default {
   install: (app: App) => {
@@ -7,4 +8,4 @@ export default {
   },
 };
 
-export { KeyAnchor };
+export { KeyAnchor, KeyEntity };

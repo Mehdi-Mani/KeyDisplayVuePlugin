@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-  import KeyPluginOptions from "src/type/KeyPluginOptions";
+  import KeyPluginOptions from "src/types/KeyPluginOptions";
   const props = withDefaults(
     defineProps<{
       showCondition?: boolean;
@@ -37,4 +37,4 @@
     }
   }
 </style>
-src/type/KeyPluginOptions
+src/type/KeyPluginOptions src/types/KeyPluginOptions

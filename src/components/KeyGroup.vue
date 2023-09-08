@@ -30,7 +30,7 @@
 <script setup lang="ts">
   import { KeyEntity } from "../entities/KeyEntity";
   import KeyBloc from "./KeyBloc.vue";
-  import KeyPluginOptions from "src/type/KeyPluginOptions";
+  import KeyPluginOptions from "src/types/KeyPluginOptions";
 
   const props = withDefaults(
     defineProps<{
@@ -48,4 +48,4 @@
     flex-wrap: wrap;
   }
 </style>
-src/type/KeyPluginOptions
+src/type/KeyPluginOptions src/types/KeyPluginOptions

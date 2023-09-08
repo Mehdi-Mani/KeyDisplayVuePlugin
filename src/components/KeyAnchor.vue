@@ -31,7 +31,7 @@
   import KeyGroup from "./KeyGroup.vue";
   import KeyPluginOptions, {
     KeyPluginOptionsDefault,
-  } from "../type/KeyPluginOptions";
+  } from "../types/KeyPluginOptions";
 
   const keyPluginOptions = withDefaults(
     defineProps<KeyPluginOptions>(),
@@ -57,4 +57,4 @@
     display: flex;
   }
 </style>
-../type/KeyPluginOptions.ts
+../type/KeyPluginOptions.ts ../types/KeyPluginOptions.ts
