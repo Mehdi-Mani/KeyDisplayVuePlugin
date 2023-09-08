@@ -5,9 +5,9 @@ export class KeyEntity {
 
   constructor(
     private readonly _content: string,
-    private readonly _altPressed: boolean,
-    private readonly _ctrlPressed: boolean,
-    private readonly _shiftPressed: boolean
+    private readonly _altPressed: boolean = false,
+    private readonly _ctrlPressed: boolean = false,
+    private readonly _shiftPressed: boolean = false
   ) {
     this._content = _content.toUpperCase();
     if (this.isKeyAModifier()) {

@@ -13,7 +13,7 @@ export default function useKeyDisplay(options?: KeyPluginOptions) {
   }
 
   function onKeyPressHandler(e: KeyboardEvent) {
-    keyQueue.addToQueue(e);
+    keyQueue.addKeyToQueue(e);
   }
   function setupEventBinding() {
     window.onkeyup = onKeyPressEvent;
