@@ -2,12 +2,6 @@ import ModifiersKeysState from "../types/ModifiersKeyState";
 import { ModifierKeysEnum } from "../enums/ModifierKeysEnum";
 
 export class KeyEntity {
-  public get modifiersKeyState(): ModifiersKeysState {
-    return this._modifiersKeyState;
-  }
-  public set modifiersKeyState(value: ModifiersKeysState) {
-    this._modifiersKeyState = value;
-  }
   private readonly _id: number;
 
   constructor(
@@ -26,7 +20,12 @@ export class KeyEntity {
     }
     this._id = Math.floor(Math.random() * 999);
   }
-
+  public get modifiersKeyState(): ModifiersKeysState {
+    return this._modifiersKeyState;
+  }
+  public set modifiersKeyState(value: ModifiersKeysState) {
+    this._modifiersKeyState = value;
+  }
   public get message(): string {
     return this._message ?? "";
   }
@@ -54,9 +53,13 @@ export class KeyEntity {
       ctrlPressed: false,
     };
   }
-  public swapContentToMessage() {
-    this.resetModifiers();
-    this.content = this.message;
+  public getOutputKeyEntity() {
+    return new KeyEntity(
+      this._message ?? "",
+      { altPressed: false, shiftPressed: false, ctrlPressed: false },
+      undefined,
+      ""
+    );
   }
   public isKeyAModifier() {
     return Object.values(ModifierKeysEnum).includes(

@@ -8,10 +8,11 @@ export class KeyQueue {
     private options?: KeyPluginOptions
   ) {}
   public addToQueue(keyEntity: KeyEntity) {
+    let keyToAdd = keyEntity;
     if (keyEntity.message && keyEntity._callback) {
-      keyEntity.swapContentToMessage();
+      keyToAdd = keyEntity.getOutputKeyEntity();
     }
-    this.queue.value.unshift(keyEntity);
+    this.queue.value.unshift(keyToAdd);
     this.timedRemoval(this.options?.fadeDelay || 2000);
   }
 
