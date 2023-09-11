@@ -1,13 +1,24 @@
+import ModifiersKeysState from "../types/ModifiersKeyState";
 import { ModifierKeysEnum } from "../enums/ModifierKeysEnum";
 
 export class KeyEntity {
+  public get modifiersKeyState(): ModifiersKeysState {
+    return this._modifiersKeyState;
+  }
+  public set modifiersKeyState(value: ModifiersKeysState) {
+    this._modifiersKeyState = value;
+  }
   private readonly _id: number;
 
   constructor(
-    private readonly _content: string,
-    private readonly _altPressed: boolean = false,
-    private readonly _ctrlPressed: boolean = false,
-    private readonly _shiftPressed: boolean = false
+    private _content: string,
+    private _modifiersKeyState: ModifiersKeysState = {
+      altPressed: false,
+      ctrlPressed: false,
+      shiftPressed: false,
+    },
+    readonly _callback?: (...params: any) => void,
+    private readonly _message?: string
   ) {
     this._content = _content.toUpperCase();
     if (this.isKeyAModifier()) {
@@ -15,28 +26,37 @@ export class KeyEntity {
     }
     this._id = Math.floor(Math.random() * 999);
   }
+
+  public get message(): string {
+    return this._message ?? "";
+  }
   public get id(): number {
     return this._id;
-  }
-  public get shiftPressed(): boolean {
-    return this._shiftPressed;
-  }
-  public get ctrlPressed(): boolean {
-    return this._ctrlPressed;
-  }
-  public get altPressed(): boolean {
-    return this._altPressed;
   }
   public get content(): string {
     return this._content;
   }
+  public set content(value: string) {
+    this._content = value;
+  }
   public isEmpty(): boolean {
     return (
       this._content.length === 0 &&
-      !this._altPressed &&
-      !this._ctrlPressed &&
-      !this.shiftPressed
+      !this.modifiersKeyState.altPressed &&
+      !this.modifiersKeyState.ctrlPressed &&
+      !this.modifiersKeyState.shiftPressed
     );
+  }
+  public resetModifiers() {
+    this.modifiersKeyState = {
+      altPressed: false,
+      shiftPressed: false,
+      ctrlPressed: false,
+    };
+  }
+  public swapContentToMessage() {
+    this.resetModifiers();
+    this.content = this.message;
   }
   public isKeyAModifier() {
     return Object.values(ModifierKeysEnum).includes(
@@ -45,9 +65,12 @@ export class KeyEntity {
   }
   public isEqual(keyEntity: KeyEntity) {
     return (
-      keyEntity._altPressed === this._altPressed &&
-      keyEntity._ctrlPressed === this.ctrlPressed &&
-      this._shiftPressed === keyEntity.shiftPressed &&
+      keyEntity.modifiersKeyState.altPressed ===
+        this.modifiersKeyState.altPressed &&
+      keyEntity.modifiersKeyState.ctrlPressed ===
+        this.modifiersKeyState.ctrlPressed &&
+      this.modifiersKeyState.shiftPressed ===
+        keyEntity.modifiersKeyState.shiftPressed &&
       this._content === keyEntity._content
     );
   }

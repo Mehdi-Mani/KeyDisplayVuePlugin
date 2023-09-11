@@ -37,4 +37,3 @@
     }
   }
 </style>
-src/type/KeyPluginOptions src/types/KeyPluginOptions

@@ -1,3 +1,4 @@
+import ModifiersKeysState from "./types/ModifiersKeyState";
 import { App } from "vue";
 import KeyAnchor from "./components/KeyAnchor.vue";
 import { KeyEntity } from "./entities/KeyEntity";

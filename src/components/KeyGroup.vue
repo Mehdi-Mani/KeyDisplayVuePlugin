@@ -6,17 +6,17 @@
   >
     <KeyBloc
       :key-plugin-options="props.keyPluginOptions"
-      :show-condition="props.keyEntity.shiftPressed"
+      :show-condition="props.keyEntity.modifiersKeyState.shiftPressed"
       key-pressed="Shift"
     />
     <KeyBloc
       :key-plugin-options="props.keyPluginOptions"
-      :show-condition="props.keyEntity.altPressed"
+      :show-condition="props.keyEntity.modifiersKeyState.altPressed"
       key-pressed="Alt"
     />
     <KeyBloc
       :key-plugin-options="props.keyPluginOptions"
-      :show-condition="props.keyEntity.ctrlPressed"
+      :show-condition="props.keyEntity.modifiersKeyState.ctrlPressed"
       key-pressed="Ctrl"
     />
     <KeyBloc
@@ -48,4 +48,3 @@
     flex-wrap: wrap;
   }
 </style>
-src/type/KeyPluginOptions src/types/KeyPluginOptions

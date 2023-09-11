@@ -2,6 +2,7 @@ import { type Emitter } from "mitt";
 import { computed, inject, onMounted, reactive, ref, provide, Ref } from "vue";
 import KeyPluginOptions from "./types/KeyPluginOptions";
 import { KeyQueue } from "./entities/KeyQueue";
+import useKeyHandler from "./useKeyHandler";
 
 export default function useKeyDisplay(options?: KeyPluginOptions) {
   const emitter = ref<Emitter<any>>();
@@ -13,16 +14,20 @@ export default function useKeyDisplay(options?: KeyPluginOptions) {
   }
 
   function onKeyPressHandler(e: KeyboardEvent) {
-    keyQueue.addKeyToQueue(e);
+    const keyEntity = useKeyHandler(e, options);
+    if (keyEntity) {
+      keyQueue.addToQueue(keyEntity);
+    }
   }
   function setupEventBinding() {
-    window.onkeyup = onKeyPressEvent;
+    window.addEventListener("keyup", onKeyPressEvent, false);
     emitter.value = inject<Emitter<any>>("emitter");
     emitter.value?.on("keyPressed", onKeyPressHandler);
   }
   onMounted(() => {
     setupEventBinding();
   });
+
   return {
     onKeyPress: onKeyPressEvent,
     keyQueue,

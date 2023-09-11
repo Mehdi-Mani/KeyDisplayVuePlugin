@@ -57,4 +57,3 @@
     display: flex;
   }
 </style>
-../type/KeyPluginOptions.ts ../types/KeyPluginOptions.ts

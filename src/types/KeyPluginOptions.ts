@@ -12,6 +12,8 @@ interface KeyPluginOptions {
   fadeDelay?: number;
   numberOfKeyGroupDisplayed?: number;
   blackList?: KeyEntity[];
+  events?: KeyEntity[];
+  displayOnEventCallOnly?: boolean;
 }
 export const KeyPluginOptionsDefault = {
   fadeDelay: 2000,
