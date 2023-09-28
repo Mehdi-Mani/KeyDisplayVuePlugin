@@ -36,7 +36,7 @@
   <h3 align="center">KeyDisplay Vue 3 Plugin</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
+A standalone Vue 3 plugin to display and handle shortcuts and key presses.
     <br />
     <a href="https://github.com/Mehdi-Mani/KeyDisplayVuePlugin/issues">Report Bug</a>
     ·
@@ -78,7 +78,7 @@
 
 ![Product Name Screen Shot][product-screenshot2]
 
-KeyDisplayPlugin ,as the name implies, is a plugin for Vue 3 that displays key pressed on your screen.
+KeyDisplayPlugin ,as the name implies, is a plugin for Vue 3 that displays key pressed on your screen and link them to events as shortcut.
 KeyDisplayPlugin is a standalone component and require almost no dependencies.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
