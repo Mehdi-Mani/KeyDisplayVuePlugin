@@ -10,6 +10,8 @@ export class KeyQueue {
   public addToQueue(keyEntity: KeyEntity) {
     let keyToAdd = keyEntity;
     if (keyEntity.message && keyEntity._callback) {
+      /**  Currently using KeyEntity as basic way to output message in the queue.
+       Should consider updating the display process to differentiate keys output and messages output */
       keyToAdd = keyEntity.getOutputKeyEntity();
     }
     this.queue.value.unshift(keyToAdd);

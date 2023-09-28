@@ -101,18 +101,18 @@ To start using KeyDisplayPLugin:
 
 - npm
   ```sh
-  npm install npm@latest -g
+  npm i vue-keys-display
   ```
 - yarn
   ```sh
-  yarn install npm@latest -g
+  yarn install vue-keys-display
   ```
 - pnpm
   ```sh
-  pnpm install npm@latest -g
+  pnpm install vue-keys-display
   ```
 
-2. Import the plugin and call app.use
+2. Import the plugin and use it
 
    ```ts
    import KeyDisplayPlugin from "vue-plugin-key-display";
@@ -128,11 +128,24 @@ To start using KeyDisplayPLugin:
    import "vue-plugin-key-display/style.css";
    ```
 
-4. Implement either the standalone
+4. Use the KeyAnchor component
 
-   ```ts
-
-   ```
+```html
+<main
+  class="flex items-center justify-center h-full overflow-scroll background-wrapper"
+>
+  <!-- Put anywhere in your app. For default css Styling, put it under body or your root -->
+  <KeyAnchor
+    :fadeDelay="1500"
+    :displayOnEventCallOnly="false"
+    :events="[events]"
+    :blackList="[blacklisted]"
+    :KeyCtrlStyleObject="{ color: 'red' }"
+    :numberOfKeyGroupDisplayed="8"
+  />
+  <!-- Rest of you code Here -->
+</main>
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -140,23 +153,101 @@ To start using KeyDisplayPLugin:
 
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Using the plugin is pretty straight forward, use the props on KeyAnchor component to customize the behaviour.
+Below is a list of props accepted by option object.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+### KeyAnchor props
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+```ts
+interface KeyPluginOptions {
+  KeyAnchorStyleObject?: StyleValue | undefined;
+  KeyContainerStyleObject?: StyleValue | undefined;
+  KeyGroupStyleObject?: StyleValue | undefined;
+  KeyBlocStyleObject?: StyleValue | undefined;
+  KeyAltStyleObject?: StyleValue | undefined;
+  KeyShiftStyleObject?: StyleValue | undefined;
+  KeyCtrlStyleObject?: StyleValue | undefined;
+  fadeDelay?: number;
+  numberOfKeyGroupDisplayed?: number;
+  blackList?: KeyEntity[];
+  events?: KeyEntity[];
+  displayOnEventCallOnly?: boolean;
+}
+```
 
-<!-- ROADMAP -->
+| Props                     | Description                                                                                                 | Type                 | Default   | Example                                           |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------- | -------------------- | --------- | ------------------------------------------------- |
+| KeyAnchorStyleObject      | Represents inline styling applied to the outer keys wrapper This is the direct parent to the keys container | StyleValue/undefined | undefined | { position: 'absolute', top: '50%', left: '50%' } |
+| KeyContainerStyleObject   | Represents inline styling applied to the inner keys wrapper. This is the direct parent to the keys Group    | StyleValue/undefined | undefined | { padding: '3rem' }                               |
+| KeyGroupStyleObject       | Reperents inline styling applied to a key group. this is the direct parent to keys blocs.                   | StyleValue/undefined | undefined | { background-color: 'red', fontSize: '30px' }     |
+| KeyBlocStyleObject        | Reperents inline styling applied to a key bloc.                                                             | StyleValue/undefined | undefined | { color: 'blue' }                                 |
+| KeyAltStyleObject         | Reperents inline styling applied to the Alt bloc.                                                           | StyleValue/undefined | undefined | { color: 'green' }                                |
+| KeyShiftStyleObject       | Reperents inline styling applied to the Alt bloc.                                                           | StyleValue/undefined | undefined | { color: 'yellow' }                               |
+| KeyCtrlStyleObject        | Reperents inline styling applied to the Alt bloc.                                                           | StyleValue/undefined | undefined | { color: 'purple' }                               |
+| fadeDelay                 | Time in ms before key group fade out                                                                        | Number               | 2000      | 5000                                              |
+| numberOfKeyGroupDisplayed | Number of key groups displayed at the same time                                                             | Number               | 3         | 8                                                 |
+| blackList                 | Array of KeyEntities to blacklist                                                                           | KeyEntity[]          | undefined | See below                                         |
+| events                    | Array of keyEntities that will call their function on press                                                 | KeyEntity[]          | undefined | See below                                         |
+| displayOnEventCallOnly    | Boolean to show keys displayed only if they are linked to an events in the Events props                     | Boolean              | false     |                                                   |
 
-## Roadmap
+```ts
+// Constructor parameter of KeyEntity.ts
+    private _content: string,
+    private _modifiersKeyState: ModifiersKeysState = {
+      altPressed: false,
+      ctrlPressed: false,
+      shiftPressed: false,
+    },
+    readonly _callback?: (...params: any) => void,
+    private readonly _message?: string
+```
 
-- [x] Initialize project
-- [x] Add default styling options
-- [x] Add Custom CSS support
-- [ ] Add Custom messages support
-- [ ] Add Custom events support
+Examples:
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+```ts
+<template>
+  <main
+    class="flex items-center justify-center h-full overflow-scroll background-wrapper"
+  >
+    <KeyAnchor
+      :fadeDelay="1500"
+      :displayOnEventCallOnly="false"
+      :events="[events]"
+      :blackList="[blacklisted]"
+      :KeyCtrlStyleObject="{ color: 'red' }"
+      :numberOfKeyGroupDisplayed="8"
+    />
+    <h1 class="font-serif text-center dark:text-white text-7xl">
+      KeyDisplayPlugin
+    </h1>
+  </main>
+</template>
+
+<script lang="ts">
+  import { KeyAnchor, KeyEntity } from "vue-keys-display";
+
+  export default {
+    setup() {
+      const events = new KeyEntity(
+        "A",
+        { altPressed: false, ctrlPressed: true, shiftPressed: false },
+        () => {
+          console.log("hello world from console");
+        },
+        "hello world 😂 on screen"
+      );
+      const blacklisted = new KeyEntity("X", {
+        ctrlPressed: true,
+        altPressed: false,
+        shiftPressed: false,
+      });
+      return { events, blacklisted };
+    },
+    components: { KeyAnchor },
+  };
+</script>
+
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -203,6 +294,7 @@ Use this space to list resources you find helpful and would like to give credit 
 
 - [Choose an Open Source License](https://choosealicense.com)
 - [Img Shields](https://shields.io)
+- [Mitt](https://github.com/developit/mitt)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
